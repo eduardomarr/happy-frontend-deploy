@@ -28,16 +28,16 @@ interface OrphanageParams {
 
 export default function Orphanage() {
   const params = useParams<OrphanageParams>()
-  const [orphanage, setOrphanage] = useState<Orphanage>();
+  const [orphanageData, setOrphanageData] = useState<Orphanage>();
   const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     api.get(`orphanages/${params.id}`).then(response => {
-      setOrphanage(response.data);
+      setOrphanageData(response.data);
     });
   }, [params.id]);
 
-  if(!orphanage) {
+  if(!orphanageData) {
     return <p>Carregando...</p>
   }
 
@@ -47,11 +47,11 @@ export default function Orphanage() {
 
       <main>
         <div className="orphanage-details">
-          <img src={orphanage.images[activeImageIndex].url} alt={orphanage.name} />
+          <img src={orphanageData.images[activeImageIndex].url} alt={orphanageData.name} />
 
           <div className="images">
             {
-              orphanage.images.map((image, index) => {
+              orphanageData.images.map((image, index) => {
                 return (
                   <button
                   key={image.id}
@@ -61,7 +61,7 @@ export default function Orphanage() {
                     setActiveImageIndex(index);
                   }}
                 >
-                  <img src={image.url} alt={orphanage.name} />
+                  <img src={image.url} alt={orphanageData.name} />
                 </button>
                 )
               })
@@ -69,12 +69,12 @@ export default function Orphanage() {
           </div>
 
           <div className="orphanage-details-content">
-            <h1>{orphanage.name}</h1>
-            <p>{orphanage.about}</p>
+            <h1>{orphanageData.name}</h1>
+            <p>{orphanageData.about}</p>
 
             <div className="map-container">
               <MapContainer
-                center={[orphanage.latitude, orphanage.longitude]}
+                center={[orphanageData.latitude, orphanageData.longitude]}
                 zoom={16}
                 style={{ width: '100%', height: 280 }}
                 dragging={false}
@@ -88,7 +88,7 @@ export default function Orphanage() {
                     `https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`
                   }
                 />
-                <Marker interactive={false} icon={mapIcon} position={[orphanage.latitude, orphanage.longitude]} />
+                <Marker interactive={false} icon={mapIcon} position={[orphanageData.latitude, orphanageData.longitude]} />
               </MapContainer>
 
               <footer>
@@ -99,15 +99,15 @@ export default function Orphanage() {
             <hr />
 
             <h2>Instruções para visita</h2>
-            <p>{orphanage.instructions}</p>
+            <p>{orphanageData.instructions}</p>
 
             <div className="open-details">
               <div className="hour">
                 <FiClock size={32} color="#15B6D6" />
                 Segunda à Sexta <br />
-                {orphanage.opening_hours}
+                {orphanageData.opening_hours}
               </div>
-              { orphanage.open_on_weekends ? (
+              { orphanageData.open_on_weekends ? (
                 <div className="open-on-weekends">
                   <FiInfo size={32} color="#39CC83" />
                   Atendemos <br />
