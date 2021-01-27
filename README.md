@@ -8,6 +8,7 @@
 
 <h1>Happy</h1>
 <p>Aplicação para cadastrar, encontrar orfanatos próximos a você e talvez até mudar a vida de muitas crianças. Projeto criado no evento NLW3</p>
+<a href="https://em-happy.netlify.app/">Link da aplicação</a>
 
 <h2>Tecnologias</h2>
 <ul>
