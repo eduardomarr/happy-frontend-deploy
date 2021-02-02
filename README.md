@@ -18,7 +18,8 @@
   <li>React-Native</li>
   <li>Expo</li>
   <li>Axios</li>
-  <li>SQLite DB</li>
+  <li>PostgreSQL</li>
+  <li>MAPBOX</li>
 </ul>
 
 <h2>Instalação</h2>
